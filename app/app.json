@@ -1,0 +1,55 @@
+{
+	"name": "gurtam_maps",
+	"url_name": "gurtammaps",
+	"title": "Gurtam Maps",
+	"description": "Search location and address by given coordinates and to search location and coordinates by given address or its part.",
+	"author": {
+		"name": "",
+		"url": "http://gurtam.com"
+	},
+	"licenses": [
+		{
+			"type":" LGPL",
+			"url": "http://www.gnu.org/licenses/lgpl.html"
+		}
+	],
+	"dependencies": {
+		"jquery": "1.8.3",
+		"jquery.ui": "1.10.0",
+		"openlayers": "2.12"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/wialon/wialon-app-gurtammaps"
+	},
+	"modules": [
+		"SDK"
+	],
+	"params": [
+		"Active SID",
+		"Base URL",
+		"Host URL"
+	],
+	"language": [
+		"ru"
+	],
+	"build_date": "2013-11-18",
+	"version": "1.1",
+	"keywords": [
+		"wialon",
+		"wialon-apps",
+		"geocoding",
+		"geolocation",
+		"gurtam maps"
+	],
+	"browser": {
+		"ie": "9+",
+		"opera": "10+",
+		"safari": "5+",
+		"chrome": "20+",
+		"firefox": "15+"
+	},
+	"logo": "logo.png",
+	"images_path": "images",
+	"desc_path": "desc"
+}

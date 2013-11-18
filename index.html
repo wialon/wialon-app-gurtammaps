@@ -1,0 +1,57 @@
+<!-- ************************************************************************
+
+   Apps - WEB applications, developed on the basis of SDK for Wialon Hosting and Wialon Kit.
+
+   http://apps.wialon.com
+
+   Copyright:
+     2002-2013 Gurtam, http://gurtam.com
+
+   License:
+     LGPL: http://www.gnu.org/licenses/lgpl.html
+
+   Authors:
+     * Gurtam
+
+************************************************************************ -->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+	<title>Gurtam maps</title>
+	<link rel="icon" type="image/png" href="./img/favicon.ico">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<meta http-equiv="pragma" content="no-cache"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<meta names="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+
+	<link rel="stylesheet" type="text/css" href="./css/jquery-ui-1.10.0.custom.min.css">
+
+	<script src="./js/jquery-1.8.3.min.js"></script>
+	<script src="./js/jquery-ui-1.10.0.custom.min.js"></script>	
+	<script src="./js/jquery.placeholder.min.js"></script>	
+	<script src="./js/underscore-min.js"></script>
+	<script src="./js/OpenLayers.js"></script>
+	<script src="./js/PanZoomBar.js"></script>
+	<script src="./js/GMap.js"></script>
+	<script src="./js/GNavigation.js"></script>
+	<script src="./js/WebGis.js"></script>
+	<link rel="stylesheet" type="text/css" href="./css/style.css">
+	<script src="./js/main.js"></script>
+	</head>
+	<body>
+		<div id="header" class="header">
+			<img class="logo" src="./img/logo.png" alt="Gurtam Maps" />
+		</div>
+
+		<div id="map" class="map"></div>
+
+		<div class="address-wrapper">
+		  <div style="height: 32px;">
+			<input id="address_input" class="address-input" type="text" name="address" placeholder="Адрес"></input>
+			<input id="show-btn" type="button" class="btn" value="Показать"/>
+			<div id="sas-result" class="search-result" style=""></div>
+		  </div>
+		</div>
+	  </body>
+</html>
