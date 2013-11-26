@@ -9,8 +9,8 @@
 	},
 	"licenses": [
 		{
-			"type":" LGPL",
-			"url": "http://www.gnu.org/licenses/lgpl.html"
+			"type": "MIT",
+			"url": "https://github.com/wialon/wialon-app-gurtammaps/blob/master/LICENSE-MIT"
 		}
 	],
 	"dependencies": {
@@ -33,7 +33,7 @@
 	"language": [
 		"ru"
 	],
-	"build_date": "2013-11-18",
+	"build_date": "2013-11-26",
 	"version": "1.1",
 	"keywords": [
 		"wialon",

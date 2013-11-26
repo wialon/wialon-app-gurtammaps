@@ -7,7 +7,7 @@ In its basic implementation, the application can be used in two ways:
 - to search location and coordinates by given address or its part.
 
 ## License
-LGPL: http://www.gnu.org/licenses/lgpl.html
+[The MIT License](../master/LICENSE-MIT)
 
 ## Requirements
  * Browser: Google Chome 20+, Firefox 15+, Safari 5+, IE 9+, Opera 10+
