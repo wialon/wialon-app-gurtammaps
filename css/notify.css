@@ -1,0 +1,40 @@
+.mynotify{
+	margin-top: 56px;
+	color: #fff;
+	right: 0;
+	position: absolute;
+	width: 350px;
+	text-align: center;
+	padding-top: 5px;
+	z-index: 99999;
+	margin-right: 15px;
+}
+
+.mynotify .noti{
+	background: rgba(0,0,0, 0.4);
+	color: #fff;
+	right: 0;
+	width: 100%;
+	text-align: center;
+	-webkit-transition: 0.5s;
+	-moz-transition: 0.5s;
+	-o-transition: 0.5s;
+	transition: 0.5s;
+	margin: 2px 0;
+	line-height: 16px;
+	padding: 8px 0;
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.mynotify .noti.success{
+}
+
+.mynotify .noti.error{
+	background: rgba(255, 255, 255, 0.8);
+	color: rgba(255, 81, 80, 0.8);
+}
+
+.mynotify .noti.h{
+	color: rgba(245, 119, 119, 0.8);
+}

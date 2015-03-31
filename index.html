@@ -1,57 +1,94 @@
-<!-- ************************************************************************
-
-   Apps - WEB applications, developed on the basis of SDK for Wialon Hosting and Wialon Kit.
-
-   http://apps.wialon.com
-
-   Copyright:
-     2002-2013 Gurtam, http://gurtam.com
-
-   License:
-     MIT: https://github.com/wialon/wialon-app-gurtammaps/blob/master/LICENSE-MIT
-
-   Authors:
-     * Gurtam
-
-************************************************************************ -->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-	<title>Gurtam maps</title>
-	<link rel="icon" type="image/png" href="./img/favicon.ico">
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-	<meta http-equiv="pragma" content="no-cache"/>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
-	<meta name="apple-mobile-web-app-capable" content="yes"/>
-	<meta names="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+	<head>
+		<title>Gurtam Maps</title>
+		<link rel="icon" type="image/png" href="./img/favicon.ico">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<meta http-equiv="pragma" content="no-cache"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+		<meta name="apple-mobile-web-app-capable" content="yes"/>
+		<meta names="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 
-	<link rel="stylesheet" type="text/css" href="./css/jquery-ui-1.10.0.custom.min.css">
+		<link rel="stylesheet" type="text/css" href="./css/jquery-ui-1.10.0.custom.min.css">
+		<link rel="stylesheet" type="text/css" href="./css/leaflet.css"/>
 
-	<script src="./js/jquery-1.8.3.min.js"></script>
-	<script src="./js/jquery-ui-1.10.0.custom.min.js"></script>	
-	<script src="./js/jquery.placeholder.min.js"></script>	
-	<script src="./js/underscore-min.js"></script>
-	<script src="./js/OpenLayers.js"></script>
-	<script src="./js/PanZoomBar.js"></script>
-	<script src="./js/GMap.js"></script>
-	<script src="./js/GNavigation.js"></script>
-	<script src="./js/WebGis.js"></script>
-	<link rel="stylesheet" type="text/css" href="./css/style.css">
-	<script src="./js/main.js"></script>
+		<script src="./js/jquery-1.8.3.min.js"></script>
+		<!-- <script src="./js/jquery-ui.min.js"></script> -->
+		<script src="./js/jquery-ui.js"></script>
+		<script src="./js/jquery.placeholder.min.js"></script>
+		<script src="./js/leaflet.js"></script>
+		<script src="./js/numbered_markers.leaflet.js"></script>
+		<script src="./js/underscore-min.js"></script>
+		<script src="./js/jquery.nicescroll.min.js"></script>
+		<script src="./js/FileSaver.min.js"></script>
+
+		<link rel="stylesheet" type="text/css" href="./css/nprogress.css">
+		<link rel="stylesheet" type="text/css" href="./css/style.css">
+		<link rel="stylesheet" type="text/css" href="./css/notify.css">
+		<script src="./js/jquery.ui.touch-punch.ext.js"></script>
+		<script src="//apps.test.gurtam.net/plugins/leaflet/webgis/webgis.leaflet.js"></script>
+		<script src="./js/jquery.localisation.js"></script>
+		<script src="./js/nprogress.js"></script>
+		<script src="./js/main.js"></script>
+		<script src="./js/notify.js"></script>
 	</head>
 	<body>
 		<div id="header" class="header">
-			<img class="logo" src="./img/logo.png" alt="Gurtam Maps" />
+			<img class="logo" src="./img/LogoIcon.png" alt="Gurtam Maps" />
+			<span class="logo-text">Gurtam Maps</span>
+		</div>
+
+		<div class="tabs">
+			<div class="tabs-control">
+				<a class="tab-search tab-btn active" data-tab-index="1">
+					<span class="icon-find"></span>
+				</a>
+				<a class="tab-routes tab-btn" data-tab-index="2">
+					<span class="icon-build"></span>
+				</a>
+			</div>
+			<div class="tab-content tab-index-1">
+
+				<div class="tab-content-item">
+					<div class="item-label" style="background: url(./img/location.png) no-repeat; margin-top: 3px; margin-left: 12px;"></div>
+					<input type="text" class="address-input search-point">
+					<div class="item-coord">
+						<span class="lat"></span>
+						<span class="lon"></span>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="tab-content tab-index-2 flexcroll" style="display:none;height: calc(100% - 35px);overflow-y: auto;overflow-x: hidden;overflow-y: hidden;">
+
+				<div class="points way2 hide-info" style="overflow-x: hidden; height: calc(100% - 70px);">
+				</div>
+
+				<!-- search point -->
+				<div class="tab-content-item find-block" style="padding-bottom: 10px; display: none;">
+					<div class="item-label add-point" style="font-weight: 100;margin-top: 2px;font-size: 18px;">+</div>
+					<input type="text" class="address-input find-address" value="">
+				</div>
+				<div class="tab-content-item label-block" style="padding:0; padding-bottom: 0; height: 60px;">
+					<div class="item-label" style="height: 0; width: 12px;"></div>
+					<div class="block-info">
+						<button class="btn-download-kml block-info-data">.kml</button>
+						<span class="label-distance block-info-data info-text">Total: <span></span></span>
+						<span class="label-time block-info-data info-text">,<span></span></span>
+						<button class="btn-clear-trip">clear track</button>
+					</div>
+					<label for="appendBefore" style="position: absolute; bottom: 50px;left: 18px; display: none;">
+						<input type="checkbox" checked="" id="appendBefore" style="width: auto; height: auto;"> between
+					</label>
+					<div class="toggle-btn collapse"></div>
+				</div>
+
+			</div>
 		</div>
 
 		<div id="map" class="map"></div>
 
-		<div class="address-wrapper">
-		  <div style="height: 32px;">
-			<input id="address_input" class="address-input" type="text" name="address" placeholder="Адрес"></input>
-			<input id="show-btn" type="button" class="btn" value="Показать"/>
-			<div id="sas-result" class="search-result" style=""></div>
-		  </div>
-		</div>
+		<div id="info" class="info" style="display: none"></div>
 	  </body>
 </html>

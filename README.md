@@ -1,4 +1,4 @@
-# Gurtam Maps, version 1.1: (February 21, 2013)
+# Gurtam Maps, version 1.2.1: (March 31, 2015)
 This is WEB application based on Apps from Gurtam (http://apps.wialon.com).
 
 ## Description
@@ -16,9 +16,19 @@ In its basic implementation, the application can be used in two ways:
  * URL params: Active SID, Base URL, Host URL
 
 ## Quick start
-Apps activation through the management system: http://docs.gurtam.com/en/hosting/cms/apps/apps  
+Apps activation through the management system: http://docs.gurtam.com/en/hosting/cms/apps/apps
 Working with applications in the GPS tracking system: http://docs.gurtam.com/en/hosting/user/apps/apps
 
 ## Release History
+ * v1.2.1 (March 31, 2015)  
+- have increased count of points (to 26)
+- added new functionality (adding new point between 2 points)
+- added information for each segment (distance, duration)
+- export to kml
+
+ * v1.2 (February 20, 2015)  
+- routing service added
+- redisigned
+
  * v1.1 (February 21, 2013)  
 - initial release
