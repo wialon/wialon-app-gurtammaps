@@ -127,8 +127,7 @@ var app = app || {};
 			}
 
 			_afterLogin = callback;
-			// null 0x800
-			wialon.core.Session.getInstance().initSession(url);
+			wialon.core.Session.getInstance().initSession(url, "", 0x800);
 			var sid = get_url_parameter("sid");
 			var authHash = get_url_parameter("authHash");
 
