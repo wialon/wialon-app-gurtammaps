@@ -1,58 +1,63 @@
 {
-	"name": "gurtam_maps",
-	"url_name": "gurtammaps",
-	"title": "Gurtam Maps",
-	"description": "The application can be used in two ways: to search location and address by given coordinates and to search location and coordinates by given address or its part.",
-	"author": {
-		"name": "",
-		"url": "http://gurtam.com"
-	},
-	"licenses": [
-		{
-			"type": "MIT",
-			"url": "https://github.com/wialon/wialon-app-gurtammaps/blob/master/LICENSE-MIT"
-		}
-	],
-	"dependencies": {
-		"jquery": "1.8.3",
-		"jquery.ui": "1.10.0",
-		"openlayers": "2.12"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/wialon/wialon-app-gurtammaps"
-	},
-	"modules": [
-		"sdk"
-	],
-	"params": [
-		"Active SID",
-		"Base URL",
-		"Host URL",
-		"Language"
-	],
-	"language": [
-		"en",
-		"ru"
-	],
-	"build_date": "2015-09-08",
-	"release_date": "2013-02-21",
-	"version": "1.2.1",
-	"keywords": [
-		"wialon",
-		"wialon-apps",
-		"geocoding",
-		"geolocation",
-		"gurtam maps"
-	],
-	"browser": {
-		"ie": "9+",
-		"opera": "25+",
-		"safari": "5+",
-		"chrome": "20+",
-		"firefox": "15+"
-	},
-	"logo": "logo.png",
-	"images_path": "images",
-	"desc_path": "desc"
+    "name": "gurtam_maps",
+    "url_name": "gurtammaps",
+    "title": "Gurtam Maps",
+    "description": "The application can be used in two ways: to search location and address by given coordinates and to search location and coordinates by given address or its part.",
+    "author": {
+        "name": "",
+        "url": "http://gurtam.com"
+    },
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "https://github.com/wialon/wialon-app-gurtammaps/blob/master/LICENSE-MIT"
+        }
+    ],
+    "dependencies": {
+        "jquery": "1.8.3",
+        "jquery.ui": "1.10.0",
+        "openlayers": "2.12"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/wialon/wialon-app-gurtammaps"
+    },
+    "modules": [
+        "sdk"
+    ],
+    "docs": [],
+    "params": [
+        "Active SID",
+        "Base URL",
+        "Host URL",
+        "Language"
+    ],
+    "language": [
+        "en",
+        "br",
+        "es",
+        "fa",
+        "pt",
+        "ru"
+    ],
+    "build_date": "2019-01-15",
+    "release_date": "2013-02-21",
+    "version": "1.2.1",
+    "keywords": [
+        "wialon",
+        "wialon-apps",
+        "geocoding",
+        "geolocation",
+        "gurtam maps"
+    ],
+    "browser": {
+        "ie": "9+",
+        "opera": "25+",
+        "safari": "5+",
+        "chrome": "20+",
+        "firefox": "15+"
+    },
+    "logo": "logo.png",
+    "images_path": "images",
+    "desc_path": "desc"
 }

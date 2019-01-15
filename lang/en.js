@@ -7,5 +7,6 @@ TRANSLATIONS = {
     "Clear All": "",
     "km": "",
     "min": "",
-    "h": ""
+    "h": "",
+    "mi": "mi"
 };

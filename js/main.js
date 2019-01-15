@@ -9,7 +9,7 @@ var app = app || {};
 		console.log = function(){};
 	}
 	/// Fetch varable from 'GET' request
-	var get_url_parameter = function (name) {
+	var get_url_parameter = function (name, def) {
 		if (!name) {
 			return null;
 		}
@@ -21,7 +21,7 @@ var app = app || {};
 				return pair.join("=");
 			}
 		}
-		return null;
+		return def || null;
 	};
 
 	var mobile = false;
@@ -29,8 +29,8 @@ var app = app || {};
 		mobile = true;
 	}
 
-	var lang = get_url_parameter("lang");
-	if ((!lang) || ($.inArray(lang, ["en", "ru"]) === -1))
+	var lang = get_url_parameter("lang","en");
+	if (availableLanguages && $.inArray(lang, availableLanguages) === -1)
 		lang = "en";
 
 	$.localise('lang/', {language: lang});
@@ -83,6 +83,25 @@ var app = app || {};
 
 	var _loadded = 0;
 
+	var roundNumber = function( value, decimals ) {
+		decimals = decimals || 4
+	    return +( Math.round( value + 'e' + decimals ) + 'e-' + decimals );
+	}
+
+	var formatMileage = function( value, mu, decimals ) {
+		decimals = decimals || 1
+	    var measure = 'km';
+	    if ( mu ) {
+	        if ( mu && mu !== 3 ) {
+	            value *= 0.621371;
+	            measure = 'mi';
+	        }
+	    }
+		value = roundNumber( value, decimals );
+
+	    return [ value, measure ];
+	}
+
 	app.gurtamMaps = (function(){
 		var MAP,
 				ROUTE = [],
@@ -95,11 +114,12 @@ var app = app || {};
 				searchField = null,
 				_lastFind,
 				_activeTab = null,
+				_measureUnits = 0,
 				MAX_POINTS = 26,
 				_preStateInfoPoints = true,
 				_timeout = null,
-				lables = {
-					km: $.localise.tr('km'),
+				labels = {
+					distance: $.localise.tr('km'),
 					h: $.localise.tr('h'),
 					min: $.localise.tr('min'),
 				},
@@ -121,13 +141,14 @@ var app = app || {};
 		};
 
 		var _initSDK = function(login, callback){
-			var url = get_url_parameter("baseUrl") || get_url_parameter("hostUrl");
+			var branch = get_url_parameter("b","master");
+			var url = get_url_parameter("baseUrl",(branch=="develop"?"https://dev-api.wialon.com":"https://hst-api.wialon.com")) || get_url_parameter("hostUrl","https://hosting.wialon.com");
 			if (!url) {
 				return null;
 			}
 
 			_afterLogin = callback;
-			wialon.core.Session.getInstance().initSession(url, "", 0x800);
+			wialon.core.Session.getInstance().initSession(url, "gapp_gurtammaps", 0x800);
 			var sid = get_url_parameter("sid");
 			var authHash = get_url_parameter("authHash");
 
@@ -162,7 +183,8 @@ var app = app || {};
 			var gurtam = L.tileLayer.webGis(wialon.core.Session.getInstance().getBaseGisUrl(), {
 				attribution: "Gurtam Maps",
 				minZoom: 4,
-				userId: wialon.core.Session.getInstance().getCurrUser().getId()
+				userId: wialon.core.Session.getInstance().getCurrUser().getId(),
+				sessionId: wialon.core.Session.getInstance().getId()
 			});
 			// create map object
 			MAP = L.map("map", {
@@ -347,6 +369,10 @@ var app = app || {};
 				alert("Login error.");
 				return null;
 			}
+			var user = wialon.core.Session.getInstance().getCurrUser();
+			_measureUnits = user.getMeasureUnits();
+			var d = formatMileage( 0, _measureUnits );
+			labels.distance = $.localise.tr(d[1]);
 			// init map
 			_initMap();
 
@@ -756,14 +782,17 @@ var app = app || {};
 				updateData: function(data){
 					var d = $.extend({
 						distance:{
-							text: '- '+ lables.km,
+							text: '- '+ labels.distance,
+							value: 0
 						},
 						duration: {
-							text: '- '+ lables.min
+							text: '- '+ labels.min
 						}
 					}, data);
-					d.distance.text = d.distance.text.replace('km', lables.km);
-					d.duration.text = d.duration.text.replace('h', lables.h).replace('min', lables.min);
+					var distance = d.distance.value / 1000;
+					var _d = formatMileage( distance, _measureUnits );
+					d.distance.text = _d[0] + ' ' + labels.distance;
+					d.duration.text = d.duration.text.replace('h', labels.h).replace('min', labels.min);
 
 					this.$block.find('.distance').html(d.distance.text);
 					this.$block.find('.duration').html(d.duration.text);
@@ -918,10 +947,11 @@ var app = app || {};
 			});
 
 			var distance = total.distance.value /1000;
-			total.distance.text = Math.floor(distance * 100) / 100 + ' '+lables.km;
+			var d = formatMileage( distance, _measureUnits );
+			total.distance.text = d[0] + ' '+ labels.distance;
 			// total.distance.text = Math.floor(total.distance.value/1000) + '.' + Math.floor(total.distance.value % 1000).toString().substring(0,2) + ' km';
 			// total.distance.text = Math.floor(total.distance.value/1000) + '.' + (total.distance.value/1000).toString().split('.')[1].substring(0,2) + ' km';
-			total.duration.text = Math.floor(total.duration.value/3600) + ' '+lables.h+ ' '+ Math.floor(total.duration.value%3600/60) + ' '+lables.min;
+			total.duration.text = Math.floor(total.duration.value/3600) + ' '+labels.h+ ' '+ Math.floor(total.duration.value%3600/60) + ' '+labels.min;
 			_updateInfo(total);
 		};
 
@@ -1746,9 +1776,10 @@ var app = app || {};
 	//DOM is ready
 	$(document).ready(function () {
 		NProgress.start();
-		var url = get_url_parameter("baseUrl");
+		var branch = get_url_parameter("b","master");
+		var url = get_url_parameter("baseUrl",(branch=="develop"?"https://dev-api.wialon.com":"https://hst-api.wialon.com"));
 		if (!url)
-			url = get_url_parameter("hostUrl");
+			url = get_url_parameter("hostUrl","https://hosting.wialon.com");
 		if (!url)
 			return null;
 		url += "/wsdk/script/wialon.js";

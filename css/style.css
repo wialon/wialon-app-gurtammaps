@@ -31,6 +31,8 @@ input:hover, input:focus {
 .header .logo {
 	margin: 6px 0px 0px 15px;
 	float: left;
+	width: 32px;
+	height: 32px;
 }
 
 .header .address-wrapper {

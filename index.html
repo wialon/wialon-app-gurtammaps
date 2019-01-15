@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<title>Gurtam Maps</title>
-		<link rel="icon" type="image/png" href="./img/favicon.ico">
+		<link rel="icon" type="image/png" href="./img/favicon.png">
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 		<meta http-equiv="pragma" content="no-cache"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
@@ -30,12 +30,22 @@
 		<script src="./js/jquery.ui.touch-punch.ext.js"></script>
 		<script src="./js/jquery.localisation.js"></script>
 		<script src="./js/nprogress.js"></script>
-		<script src="./js/main.js"></script>
-		<script src="./js/notify.js"></script>
+		<script src="./js/main.js" defer></script>
+		<script src="./js/notify.js" defer></script>
+		<script>
+			var availableLanguages=null;
+			var documentationLink=null;
+			var is_white=null;
+			function appPredefineVariables(app_langs,doc_link,is_whitelabeled){
+				availableLanguages=app_langs;
+				documentationLink=is_whitelabeled?null:doc_link;
+				is_white=is_whitelabeled;
+			}
+		</script>
 	</head>
 	<body>
 		<div id="header" class="header">
-			<img class="logo" src="./img/LogoIcon.png" alt="Gurtam Maps" />
+			<img class="logo" src="./img/logo.svg" alt="Gurtam Maps" />
 			<span class="logo-text">Gurtam Maps</span>
 		</div>
 
