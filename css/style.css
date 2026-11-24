@@ -78,7 +78,6 @@ input:hover, input:focus {
 
 .map {
 	position: absolute;
-	/*top: 48px;*/
 	cursor: default;
 	bottom: 0;
 	width: 100%;
@@ -194,8 +193,6 @@ input:hover, input:focus {
 }
 
 .tab-content-item span.icon-close{
-	/*transform: rotate(45deg);*/
-	/*background: url('../img/close.png') no-repeat;*/
 	color: rgb(155, 155, 155);
 	width: 20px;
 	height: 29px;
@@ -209,7 +206,6 @@ input:hover, input:focus {
 
 .icon-close:hover{
 	color: #333 !important;
-	/*background: url('../img/close_on.png') no-repeat 50% 50% !important;*/
 }
 
 .tabs input{
@@ -228,7 +224,6 @@ input:hover, input:focus {
 }
 
 .tab-content .tab-content-item:last-child{
-	/*border: none;*/
 }
 
 .point.tab-content-item:hover .dnd-icon{
@@ -244,7 +239,6 @@ input:hover, input:focus {
 	padding: 0;
 	background: rgba(255,255,255, .6);
 	position: relative;
-	/*border-bottom: 1px solid #ebebeb;*/
 	padding-top: 6px;
 	-webkit-transition: width 2s, height 4s; /* For Safari 3.1 to 6.0 */
 	transition: width 2s, height 4s;
@@ -290,7 +284,6 @@ input:hover, input:focus {
 .tab-content-item .item-label{
 	clear: both;
 	height: 29px;
-	/*height: 100%;*/
 	margin-top: 3px;
 	width: 25px;
 	float: left;
@@ -313,8 +306,6 @@ input:hover, input:focus {
 }
 
 .item-coord{
-	/*width: 444px;*/
-	/*height: 20px;*/
 	height: 20px;
 	margin-top: 5px;
 	margin-left: 38px;
@@ -334,13 +325,6 @@ input:hover, input:focus {
 	padding-left: 5px;
 }
 
-/*.label-time{
-	right: 0;
-	position: absolute;
-	margin-right: 40px;
-	font-size: 12px;
-}*/
-
 .label-time{
 	float: left;
 }
@@ -359,7 +343,6 @@ input:hover, input:focus {
 
 .add-point{
 	cursor: default !important;
-	/*background: url('../img/add_on.png') no-repeat !important;*/
 }
 
 .leaflet-div-icon {

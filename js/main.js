@@ -8,7 +8,7 @@ var app = app || {};
 	if( ! DEBUG){
 		console.log = function(){};
 	}
-	/// Fetch varable from 'GET' request
+	/// Fetch variable from 'GET' request
 	var get_url_parameter = function (name, def) {
 		if (!name) {
 			return null;
@@ -85,21 +85,21 @@ var app = app || {};
 
 	var roundNumber = function( value, decimals ) {
 		decimals = decimals || 4
-	    return +( Math.round( value + 'e' + decimals ) + 'e-' + decimals );
+		return +( Math.round( value + 'e' + decimals ) + 'e-' + decimals );
 	}
 
 	var formatMileage = function( value, mu, decimals ) {
 		decimals = decimals || 1
-	    var measure = 'km';
-	    if ( mu ) {
-	        if ( mu && mu !== 3 ) {
-	            value *= 0.621371;
-	            measure = 'mi';
-	        }
-	    }
+		var measure = 'km';
+		if ( mu ) {
+			if ( mu && mu !== 3 ) {
+				value *= 0.621371;
+				measure = 'mi';
+			}
+		}
 		value = roundNumber( value, decimals );
 
-	    return [ value, measure ];
+		return [ value, measure ];
 	}
 
 	app.gurtamMaps = (function(){
@@ -141,8 +141,7 @@ var app = app || {};
 		};
 
 		var _initSDK = function(login, callback){
-			var branch = get_url_parameter("b","master");
-			var url = get_url_parameter("baseUrl",(branch=="develop"?"https://dev-api.wialon.com":"https://hst-api.wialon.com")) || get_url_parameter("hostUrl","https://hosting.wialon.com");
+			var url = get_url_parameter("baseUrl","https://hst-api.wialon.com") || get_url_parameter("hostUrl","https://hosting.wialon.com");
 			if (!url) {
 				return null;
 			}
@@ -214,7 +213,6 @@ var app = app || {};
 					$input = $('input.address-input.selected');
 				}
 				_searchBlock();
-				// var $input = $('input.address-input.selected');
 				if($input && $input.length){
 					show_marker(evt.latlng, false, $input, true, function(){
 						$('.add-point').trigger('click', true);
@@ -233,7 +231,7 @@ var app = app || {};
 							$('.add-point').trigger('click', true);
 						});
 					}
-				}else	if(POINTS.length >= 2 && !$('.find-address').val() && POINTS.length < MAX_POINTS){
+				}else if(POINTS.length >= 2 && !$('.find-address').val() && POINTS.length < MAX_POINTS){
 					var notFillInputs = _.filter(POINTS, function(point){ return !point.lat || !point.lon; });
 					if(notFillInputs.length){
 						var id = notFillInputs[0].id;
@@ -260,7 +258,6 @@ var app = app || {};
 				success: {"color": "#17adfb", "opacity": 0.7},
 				error: {"color": "red", "opacity": 0.7}
 			};
-			// var routes = {};
 			var routes = [];
 			return {
 				add: function(index, options, style){
@@ -272,7 +269,6 @@ var app = app || {};
 					}
 
 					if( ! routes.length){
-						// routes[index] = tmp;
 						routes.push(tmp);
 					}else{
 						routes.prepend(index, tmp);
@@ -299,7 +295,6 @@ var app = app || {};
 					if(this.exist(section_key)){
 						this.get(section_key).setStyle(style).setLatLngs(data);
 					}else{
-						// debugger;
 						if( ! isRemove){
 							tmp_route = this.add(section_key, {}, style);
 							tmp_route.setLatLngs(data);
@@ -323,11 +318,6 @@ var app = app || {};
 							routes[key].options.index = routes[key].options.index*1 + 1;
 						}
 					});
-
-					// console.clear();
-					// _.forEach(Routes.get(), function(r){
-					// 	console.log(r.options.index);
-					// });
 				},
 				exist: function(index){
 					return routes[index] ? true : false;
@@ -335,15 +325,11 @@ var app = app || {};
 				remove: function(index){
 					var key = 1;
 					if(key !== null && this.exist(index)){
-						// MAP.removeLayer(this.get(key));
 						MAP.removeLayer(this.get(index));
 						routes.splice(index, 1);
-						// delete routes[key];
 
 						_.map(routes, function(route, key){
-							// if(key > index){
-								routes[key].options.index = key;
-							// }
+							routes[key].options.index = key;
 						});
 					}
 				},
@@ -387,7 +373,6 @@ var app = app || {};
 					self = polyline;
 			var handlers = {
 				stopDnD: function (evt) {
-					console.log('mouseup on circle');
 					if( ! circle)
 						return;
 
@@ -402,7 +387,7 @@ var app = app || {};
 									$('.add-point').trigger('click', true);
 								});
 							}
-						}else	if(POINTS.length >= 2 && !$('.find-address').val() && POINTS.length < MAX_POINTS){
+						}else if(POINTS.length >= 2 && !$('.find-address').val() && POINTS.length < MAX_POINTS){
 							var notFillInputs = _.filter(POINTS, function(point){ return !point.lat || !point.lon; });
 							if(notFillInputs.length){
 								var id = notFillInputs[0].id;
@@ -431,8 +416,6 @@ var app = app || {};
 					self.setStyle({weight: 5});
 				},
 				mousemove: function(evt){
-					console.log('move on');
-
 					if( ! this.options.success || POINTS.length === MAX_POINTS)
 						return;
 
@@ -466,7 +449,6 @@ var app = app || {};
 					circle.bringToBack();
 				},
 				mousedown: function(){
-					console.log('down');
 					_onMouseDown = true;
 					if(circle)
 						circle.fire('mousedown');
@@ -485,12 +467,10 @@ var app = app || {};
 
 		/**
 		* Render trip by points
-		* unused
 		*
 		* @param points {Object} - array of points [{lat:y, lon:x}]
 		*/
 		var _renderWay = function(points){
-			debugger;
 			NProgress.start();
 			var origin, destination;
 			var waypoints = [],
@@ -511,61 +491,47 @@ var app = app || {};
 			LAST_ROUTE = new Date().getTime();
 			var rt = LAST_ROUTE;
 
-
-			// removed delay for getting the points of trip
-			// was agreed with shmi (25.02.2015)
-
-			// if(_timeout){
-			// 	window.clearTimeout(_timeout);
-			// }
-
 			app.sections = [];
-			// _timeout = setTimeout(function(){
-				// build trip
-				wialon.util.Gis.getRouteViaWaypoints(origin, destination, waypoints, function (code, data) {
-					if (code === 0 && data && data.status !== 'NOT FOUND') {
-						if(rt === LAST_ROUTE && data.sections){
-							_updateInfo(data);
-							var	point,
-									tmp_route;
-							_.forEach(data.sections, function(datas, key){
-								point = POINTS[key];
-								if(point){
-									app.sections.push({from: point.id, to: POINTS[key+1].id, index: key, data: datas});
-									point.updateData(datas, key);
-									if( ! Routes.exist(point.id))
-										Routes.add(point.id, {"color": "#17adfb", "opacity": 0.7});
+			// build trip
+			wialon.util.Gis.getRouteViaWaypoints(origin, destination, waypoints, function (code, data) {
+				if (code === 0 && data && data.status !== 'NOT FOUND') {
+					if(rt === LAST_ROUTE && data.sections){
+						_updateInfo(data);
+						var	point,
+								tmp_route;
+						_.forEach(data.sections, function(datas, key){
+							point = POINTS[key];
+							if(point){
+								app.sections.push({from: point.id, to: POINTS[key+1].id, index: key, data: datas});
+								point.updateData(datas, key);
+								if( ! Routes.exist(point.id))
+									Routes.add(point.id, {"color": "#17adfb", "opacity": 0.7});
 
-									if( ! Routes.exist(key))
-										Routes.add(key, {"color": "#17adfb", "opacity": 0.7, index: key, success: true});
+								if( ! Routes.exist(key))
+									Routes.add(key, {"color": "#17adfb", "opacity": 0.7, index: key, success: true});
 
-									tmp_route = Routes.get(key);
-									lineHandler(tmp_route);
+								tmp_route = Routes.get(key);
+								lineHandler(tmp_route);
 
-									tmp_route.setStyle({"color": "#17adfb", "opacity": 0.7}).setLatLngs(wialon.util.Gis.decodePoly(datas.points));
+								tmp_route.setStyle({"color": "#17adfb", "opacity": 0.7}).setLatLngs(wialon.util.Gis.decodePoly(datas.points));
+							}
 
-									// points = points.concat(wialon.util.Gis.decodePoly(data.points));
-								}
+							if(key === data.sections.length && data.sections.length > 2)
+								app.routes[POINTS[key+1].id] = L.polyline([], {"color": "#17adfb", "opacity": 0.7}).addTo(MAP);
+						});
 
-								if(key === data.sections.length && data.sections.length > 2)
-									app.routes[POINTS[key+1].id] = L.polyline([], {"color": "#17adfb", "opacity": 0.7}).addTo(MAP);
-							});
+						ROUTE.setStyle({"color": "#17adfb", "opacity": 0.7}).setLatLngs([]);
 
-							ROUTE.setStyle({"color": "#17adfb", "opacity": 0.7}).setLatLngs([]);
-
-							POINTS[POINTS.length-1].updateData({});
-							//paint green line by trip
-							// ROUTE.setStyle({"color": "#17adfb", "opacity": 0.7}).setLatLngs(points);
-							_calculateTotalData();
-							NProgress.done();
-						}
-					} else {
-						_updateInfo();
-						app.notify.add($.localise.tr('Unable to find a route.'), true, 'error');
+						POINTS[POINTS.length-1].updateData({});
+						_calculateTotalData();
 						NProgress.done();
 					}
-				}, 1);
-			// }, 1000);
+				} else {
+					_updateInfo();
+					app.notify.add($.localise.tr('Unable to find a route.'), true, 'error');
+					NProgress.done();
+				}
+			}, 1);
 
 			_searchBlock();
 			_resizeHandler();
@@ -604,13 +570,10 @@ var app = app || {};
 
 						if(isPart){
 							var b = _getPointsOrder();
-							// debugger;
 							var ids = [POINTS[key].id];
 							var indexpoint = b.indexOf(POINTS[key].id);
 							if(indexpoint !== 0)
 								ids.push(b[indexpoint+1]);
-							// if(indexpoint === 0)
-							// 	ids.push(b[indexpoint-1]);
 							_preRenderWay(true, ids);
 						}else{
 							// prerender trip
@@ -700,7 +663,7 @@ var app = app || {};
 		* Choose color of marker
 		*
 		* @param $block {Object} - jquery element
-		* If $block is last ement into DOM, then color = red, else green
+		* If $block is last element into DOM, then color = red, else green
 		*/
 		var getPointsType = function($block){
 			var $last = $('.points div.point:last');
@@ -747,7 +710,6 @@ var app = app || {};
 
 					POINTS = tmp_points;
 					checkMarkers();
-					// _preRenderWay();
 				}
 			}
 		};
@@ -940,7 +902,6 @@ var app = app || {};
 			};
 			_.forEach(app.sections, function(section){
 				if(section.data){
-					// total.distance.value += Math.floor(section.data.distance.value);
 					total.distance.value += Math.round(section.data.distance.value/1000*100)*10;
 					total.duration.value += Math.floor(section.data.duration.value - section.data.duration.value % 60);
 				}
@@ -949,8 +910,6 @@ var app = app || {};
 			var distance = total.distance.value /1000;
 			var d = formatMileage( distance, _measureUnits );
 			total.distance.text = d[0] + ' '+ labels.distance;
-			// total.distance.text = Math.floor(total.distance.value/1000) + '.' + Math.floor(total.distance.value % 1000).toString().substring(0,2) + ' km';
-			// total.distance.text = Math.floor(total.distance.value/1000) + '.' + (total.distance.value/1000).toString().split('.')[1].substring(0,2) + ' km';
 			total.duration.text = Math.floor(total.duration.value/3600) + ' '+labels.h+ ' '+ Math.floor(total.duration.value%3600/60) + ' '+labels.min;
 			_updateInfo(total);
 		};
@@ -976,7 +935,7 @@ var app = app || {};
 		*
 		* @param start {Array} - list ids of points before they were changed
 		* @param end {Array} - list ids of points after they were changed
-		* @param ids {Array} - list ads which necessary change
+		* @param ids {Array} - list of ids which need to be changed
 		* @param isRemove {Boolean} - flag - true for removing point
 		*
 		* @return stack {Array} - list of sections which were changed (example: {from: 1, to: 2, index: 0})
@@ -1002,10 +961,6 @@ var app = app || {};
 					res.push({from: data.prev, to: data.after, index: key});
 				}else{
 					app.sections.splice(key, 1);
-					// if(app.routess[key]){
-					// 	MAP.removeLayer(app.routess[key]);
-					// 	delete app.routess[key];
-					// }
 				}
 			};
 
@@ -1016,7 +971,7 @@ var app = app || {};
 				var allow_add = false;
 				var length = (isRemove) ? start.length : end.length;
 				while(i < length){
-					if(end[i] !== start[i] || allow_add || ids && (ids.indexOf(end[i]) !== -1)){ //|| ids.indexOf(p) !== -1
+					if(end[i] !== start[i] || allow_add || ids && (ids.indexOf(end[i]) !== -1)){
 						if(isRemove && _.keys(changedInds).length){
 							i++;
 							continue;
@@ -1026,7 +981,6 @@ var app = app || {};
 							first_point = true;
 
 						if(end[i] === undefined){
-							console.log('was remove point');
 							i++;
 							continue;
 						}
@@ -1081,20 +1035,16 @@ var app = app || {};
 		*
 		* @param dnd_s {Array} - list ids of points before they were changed
 		* @param dnd_e {Array} - list ids of points after they were changed
-		* @param ids {Array} - list ads which necessary change
+		* @param ids {Array} - list of ids which need to be changed
 		* @param isRemove {Boolean} - flag - true for removing point
 		*/
 		var _buildDndWay = function(dnd_s, dnd_e, ids, isRemove){
 			_sortablePoints();
 			NProgress.start();
-			console.log(dnd_s, dnd_e, ids);
 
 			var points = _getAffectPoints(dnd_s, dnd_e, ids, isRemove);
 
-			console.log(points);
-
 			var updateRoute = function(section_key, data, isOk, remove){
-				// var style = isOk ? {"color": "#17adfb", "opacity": 0.7} : {"color": "red", "opacity": 0.7};
 				var currect_ind = section_key;
 				if(remove && section_key !== 0){
 					section_key -= 1;
@@ -1137,7 +1087,6 @@ var app = app || {};
 				}
 
 				tmp_point_to = cache[point.to];
-				// tmp_point_to.updateData({});
 				if(!p.length || p[p.length-1].id !== tmp_point_to.id)
 					p.push(tmp_point_to);
 
@@ -1173,63 +1122,54 @@ var app = app || {};
 			}
 
 			_loadded++;
-			// setTimeout(function(){
-				wialon.util.Gis.getRouteViaWaypoints(origin, destination, waypoints, function (code, data) {
-					_loadded--;
-					if (code === 0 && data.status !== "NOT FOUND"){
-						var point,
-								tmp_points,
-								error = false,
-								tmp,
-								index;
-						_.forEach(data.sections, function(data, key){
-							point = points[key];
-							// index = null;
-							_.map(app.sections, function(section){
-								index = null;
-								if(section.from === point.from){
-									index = section.index;
-									tmp = _.findWhere(POINTS, {id: point.from});
-								}
-								else if(section.to === point.to){
-									index = section.index;
-									tmp = _.findWhere(POINTS, {id: point.to});
-								}
+			wialon.util.Gis.getRouteViaWaypoints(origin, destination, waypoints, function (code, data) {
+				_loadded--;
+				if (code === 0 && data.status !== "NOT FOUND"){
+					var point,
+							tmp_points,
+							error = false,
+							tmp,
+							index;
+					_.forEach(data.sections, function(data, key){
+						point = points[key];
+						_.map(app.sections, function(section){
+							index = null;
+							if(section.from === point.from){
+								index = section.index;
+								tmp = _.findWhere(POINTS, {id: point.from});
+							}
+							else if(section.to === point.to){
+								index = section.index;
+								tmp = _.findWhere(POINTS, {id: point.to});
+							}
 
-								if(index !== null){
-									section.data = data;
-								}
-							});
-							if(point){
-								tmp.updateData(data, index);
-								tmp_points = wialon.util.Gis.decodePoly(data.points);
-								if(tmp_points.length > 2){
-									updateRoute(point.index, wialon.util.Gis.decodePoly(data.points), true);
-								}else
-									error = true;
+							if(index !== null){
+								section.data = data;
 							}
 						});
+						if(point){
+							tmp.updateData(data, index);
+							tmp_points = wialon.util.Gis.decodePoly(data.points);
+							if(tmp_points.length > 2){
+								updateRoute(point.index, wialon.util.Gis.decodePoly(data.points), true);
+							}else
+								error = true;
+						}
+					});
 
-						// _.forEach(app.routess, function(route, key){
-						// 	if(! app.sections[key]){
-						// 		MAP.removeLayer(route);
-						// 		delete app.routess[key];
-						// 	}
-						// });
-						if(error)
-							app.notify.add($.localise.tr('Unable to find a route.'), true, 'error');
-
-						_calculateTotalData();
-
-					} else {
-						_updateInfo();
+					if(error)
 						app.notify.add($.localise.tr('Unable to find a route.'), true, 'error');
-					}
 
-					if(! _loadded)
-						NProgress.done();
-				}, 1);
-			// }, 2000);
+					_calculateTotalData();
+
+				} else {
+					_updateInfo();
+					app.notify.add($.localise.tr('Unable to find a route.'), true, 'error');
+				}
+
+				if(! _loadded)
+					NProgress.done();
+			}, 1);
 		};
 
 		/**
@@ -1239,8 +1179,6 @@ var app = app || {};
 		*/
 		var _bindAutoCompleate = function(){
 			// bind events
-			// var expr = new RegExp('^[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?,[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?$', 'i');
-			// var expr = /(\d+)[.]*/ig;
 			var expr = /[n|e]{0,1}[-+]*(\d)+[.]+\d+/ig;
 
 			$(".address-input").each(function (j, elem) {
@@ -1263,19 +1201,13 @@ var app = app || {};
 
 							dnd_s = _getPointsOrder(true);
 
-							console.log('start dnd:');
-							console.log(dnd_s);
 							drag_index = prevElmts.length + 1;
 							drag.helper.find('.icon-close').hide();
 						},
 						stop: function(e, drag) {
-							console.log('end dnd:' + drag.item.attr('data-point-index'));
 							var prevElmts = drag.item.prevAll();
 							if(drag_index !== null && (prevElmts.length+1) !== drag_index){
 								dnd_e = _getPointsOrder();
-
-								console.log('end dnd:');
-								console.log(dnd_e);
 
 								_buildDndWay(dnd_s, dnd_e);
 
@@ -1496,11 +1428,9 @@ var app = app || {};
 							});
 
 							if(!_.isNull(sectionInd) && Routes.exist(sectionInd)){
-								// app.routess[sectionInd].
 								Routes.remove(sectionInd);
 								app.sections[sectionInd].data.distance.value = 0;
 								app.sections[sectionInd].data.duration.value = 0;
-								// app.sections.splice(sectionInd, 1);
 							}
 
 							var preventItems = _getPointsOrder();
@@ -1514,7 +1444,6 @@ var app = app || {};
 
 				$body.on('click', '.btn-clear-trip', function(){
 					$('.points').html('');
-					// MAP.removeLayer(ROUTE);
 					ROUTE.setStyle({}).setLatLngs([]);
 
 					_.forEach(MARKERS, function(marker){
@@ -1559,7 +1488,6 @@ var app = app || {};
 			$body.on('keypress', '.address-input', function (event) {
 				if (event.which === 13) {
 					$(this).autocomplete("search");
-					// $(this).parent().children(".btn").trigger("click");
 				}
 			});
 
@@ -1602,7 +1530,6 @@ var app = app || {};
 				CONTROL_HEIGHT = 35,
 				MARGIN = 15,
 				h_find_block = $tab2.find('.find-block').outerHeight();
-				// h_find_block += h_find_block ? 21 : 0; // 21 -padding + border
 
 			if(h_tab && $tab2[0].clientHeight){
 				$('.points').css('height', '100%');
@@ -1611,10 +1538,6 @@ var app = app || {};
 
 				if(h_tab+CONTROL_HEIGHT+header_h+30 >= win_h){
 					if(!$.browser.opera && !mobile || $.browser.chrome){
-						// if(mobile)
-						// 	h_labes += 2;
-						// else
-						// 	h_labes -= 2;
 						if(!$('.find-block').get(0).clientHeight)
 							$('.points').css('height', 'calc(100% - '+h_labes+'px)');
 						else
@@ -1622,13 +1545,10 @@ var app = app || {};
 
 						$('.tabs').css('height', '100%');
 					}else{
-						// h_points = $('.points').children().length*58;
-						// if(mobile){
 						h_points = 0;
 						$('.points').children().each(function(k, el){
 							h_points += $(el).outerHeight();
 						});
-						// }
 						if(h_points+15+CONTROL_HEIGHT+header_h+h_labes+h_find_block > win_h){
 							h_points = win_h - header_h-MARGIN-CONTROL_HEIGHT;
 							if(!$('.find-block').get(0).clientHeight)
@@ -1731,10 +1651,6 @@ var app = app || {};
 				if(!mobile){
 					$('.tab-content.tab-index-2 .points').niceScroll({
 						cursorcolor:"#ECECEC",
-						// touchbehavior: true,
-						// nativeparentscrolling: true,
-						// touchbehavior: true,
-						// preventmultitouchscrolling: false,
 						horizrailenabled: false
 					});
 					$('.tab-content.tab-index-2 .points').getNiceScroll().hide();
@@ -1776,8 +1692,7 @@ var app = app || {};
 	//DOM is ready
 	$(document).ready(function () {
 		NProgress.start();
-		var branch = get_url_parameter("b","master");
-		var url = get_url_parameter("baseUrl",(branch=="develop"?"https://dev-api.wialon.com":"https://hst-api.wialon.com"));
+		var url = get_url_parameter("baseUrl","https://hst-api.wialon.com");
 		if (!url)
 			url = get_url_parameter("hostUrl","https://hosting.wialon.com");
 		if (!url)
@@ -1785,7 +1700,7 @@ var app = app || {};
 		url += "/wsdk/script/wialon.js";
 		$('.label-distance').html($.localise.tr('Total:')+' <span></span>');
 		$('.btn-clear-trip').html($.localise.tr('Clear All'));
-		$('.label-time').html(', <span></span>'); //$.localise.tr('Time')
+		$('.label-time').html(', <span></span>');
 		// load wialon sdk
 		load_script(url, function(){
 			app.notify.init();

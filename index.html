@@ -13,7 +13,6 @@
 		<link rel="stylesheet" type="text/css" href="./css/leaflet.css"/>
 
 		<script src="./js/jquery-1.8.3.min.js"></script>
-		<!-- <script src="./js/jquery-ui.min.js"></script> -->
 		<script src="./js/jquery-ui.js"></script>
 		<script src="./js/jquery.placeholder.min.js"></script>
 		<script src="./js/leaflet.js"></script>
@@ -21,7 +20,6 @@
 		<script src="./js/underscore-min.js"></script>
 		<script src="./js/jquery.nicescroll.min.js"></script>
 		<script src="./js/FileSaver.min.js"></script>
-
 
 		<script src="//apps.wialon.com/plugins/leaflet/webgis/webgis.leaflet.js"></script>
 		<link rel="stylesheet" type="text/css" href="./css/nprogress.css">
@@ -36,11 +34,45 @@
 			var availableLanguages=null;
 			var documentationLink=null;
 			var is_white=null;
-			function appPredefineVariables(app_langs,doc_link,is_whitelabeled){
-				availableLanguages=app_langs;
-				documentationLink=is_whitelabeled?null:doc_link;
-				is_white=is_whitelabeled;
-			}
+			function loadAppConfigSync() {
+                var xhr = new XMLHttpRequest();
+                xhr.open("GET", "/gurtammaps/app/app.json", false);
+                xhr.send();
+                if (xhr.status === 200) {
+                    try {
+                        var data = JSON.parse(xhr.responseText);
+                        is_white = false;
+                        document.title = decodeURIComponent(data.title || "Gurtam Maps");
+                        availableLanguages = data.language || null;
+                    } catch (e) {
+                        console.error("Error parsing JSON from app.json:", e);
+                    }
+                }
+
+                xhr.open("GET", "/gurtammaps/whitelabel.json", false);
+                xhr.send();
+                if (xhr.status === 200) {
+                    try {
+                        var data = JSON.parse(xhr.responseText);
+                        if (data.hasOwnProperty('IS_WHITELABEL')) {
+                            is_white = data.IS_WHITELABEL === false ? false : true;
+                        }
+                        if (data.hasOwnProperty('alias')) {
+                            document.title = decodeURIComponent(data.alias) || "Gurtam Maps";
+                            data.alias = document.title;
+                        }
+                        if (data.hasOwnProperty('help_url_link')) {
+                            documentationLink = decodeURIComponent(data.help_url_link);
+                            data.help_url_link = documentationLink;
+                        }
+                        APP_CONFIG = data;
+                    } catch (e) {
+                        console.error("Error parsing JSON from whitelabel.json:", e);
+                    }
+                }
+            }
+            loadAppConfigSync();
+
 		</script>
 	</head>
 	<body>
@@ -101,5 +133,5 @@
 		<div id="map" class="map"></div>
 
 		<div id="info" class="info" style="display: none"></div>
-	  </body>
+	</body>
 </html>

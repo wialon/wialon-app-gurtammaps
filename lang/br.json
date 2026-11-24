@@ -1,4 +1,4 @@
-TRANSLATIONS = {
+{
     "Time": "Tempo",
     "Distance": "Distância",
     "You have reached the limit of points.": "Você alcançou o limite de pontos.",
@@ -7,5 +7,6 @@ TRANSLATIONS = {
     "Clear All": "Eliminar todos",
     "km": "km",
     "min": "min",
-    "h": "h"
-};
+    "h": "h",
+    "mi": ""
+}

@@ -1,4 +1,4 @@
-TRANSLATIONS = {
+{
     "Time": "Tiempo",
     "Distance": "Distancia",
     "You have reached the limit of points.": "Usted ha alcanzado el límite de puntos.",
@@ -9,4 +9,4 @@ TRANSLATIONS = {
     "min": "min",
     "h": "h",
     "mi": "mi"
-};
+}

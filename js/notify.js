@@ -1,23 +1,18 @@
 (function(app, $){
 	'use strict';
-	
+
 	app.notify = app.notify || {};
 
 	/**
 	 * Notification
 	 * @return {object}
 	 */
-	
+
 	app.notify = (function(){
 		var $notifyBox = null;
 		var _init = function(){
 			$notifyBox = $('<div class="mynotify"></div>');
 			$('body').append($notifyBox);
-
-			// for test
-			// o.add('test');
-			// o.add('Success noti', null, 'success');
-			// o.add('Error noti', null, 'error');
 		};
 
 		var o = {
